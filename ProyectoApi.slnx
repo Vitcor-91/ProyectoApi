@@ -1,0 +1,7 @@
+<Solution>
+  <Project Path="ProyectoApi.Api/ProyectoApi.Api.csproj" />
+  <Project Path="ProyectoApi.Application/ProyectoApi.Application.csproj" />
+  <Project Path="ProyectoApi.Domain/ProyectoApi.Domain.csproj" />
+  <Project Path="ProyectoApi.Infrastructure/ProyectoApi.Infrastructure.csproj" />
+  <Project Path="ProyectoApi.UnitTests/ProyectoApi.UnitTests.csproj" />
+</Solution>

@@ -1,0 +1,15 @@
+/Volumes/SSD Mac/Proyects/NET/Back/Externos/Proyecto/ProyectoApi.Application/bin/Debug/net10.0/ProyectoApi.Application.deps.json
+/Volumes/SSD Mac/Proyects/NET/Back/Externos/Proyecto/ProyectoApi.Application/bin/Debug/net10.0/ProyectoApi.Application.dll
+/Volumes/SSD Mac/Proyects/NET/Back/Externos/Proyecto/ProyectoApi.Application/bin/Debug/net10.0/ProyectoApi.Application.pdb
+/Volumes/SSD Mac/Proyects/NET/Back/Externos/Proyecto/ProyectoApi.Application/bin/Debug/net10.0/ProyectoApi.Domain.dll
+/Volumes/SSD Mac/Proyects/NET/Back/Externos/Proyecto/ProyectoApi.Application/bin/Debug/net10.0/ProyectoApi.Domain.pdb
+/Volumes/SSD Mac/Proyects/NET/Back/Externos/Proyecto/ProyectoApi.Application/obj/Debug/net10.0/ProyectoApi.Application.csproj.AssemblyReference.cache
+/Volumes/SSD Mac/Proyects/NET/Back/Externos/Proyecto/ProyectoApi.Application/obj/Debug/net10.0/ProyectoApi.Application.GeneratedMSBuildEditorConfig.editorconfig
+/Volumes/SSD Mac/Proyects/NET/Back/Externos/Proyecto/ProyectoApi.Application/obj/Debug/net10.0/ProyectoApi.Application.AssemblyInfoInputs.cache
+/Volumes/SSD Mac/Proyects/NET/Back/Externos/Proyecto/ProyectoApi.Application/obj/Debug/net10.0/ProyectoApi.Application.AssemblyInfo.cs
+/Volumes/SSD Mac/Proyects/NET/Back/Externos/Proyecto/ProyectoApi.Application/obj/Debug/net10.0/ProyectoApi.Application.csproj.CoreCompileInputs.cache
+/Volumes/SSD Mac/Proyects/NET/Back/Externos/Proyecto/ProyectoApi.Application/obj/Debug/net10.0/Proyecto.3F9A53FF.Up2Date
+/Volumes/SSD Mac/Proyects/NET/Back/Externos/Proyecto/ProyectoApi.Application/obj/Debug/net10.0/ProyectoApi.Application.dll
+/Volumes/SSD Mac/Proyects/NET/Back/Externos/Proyecto/ProyectoApi.Application/obj/Debug/net10.0/refint/ProyectoApi.Application.dll
+/Volumes/SSD Mac/Proyects/NET/Back/Externos/Proyecto/ProyectoApi.Application/obj/Debug/net10.0/ProyectoApi.Application.pdb
+/Volumes/SSD Mac/Proyects/NET/Back/Externos/Proyecto/ProyectoApi.Application/obj/Debug/net10.0/ref/ProyectoApi.Application.dll

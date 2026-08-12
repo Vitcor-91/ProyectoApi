@@ -1,0 +1,20 @@
+{
+  "version": 2,
+  "dgSpecHash": "6VEJSWCCApE=",
+  "success": true,
+  "projectFilePath": "/Volumes/SSD Mac/Proyects/NET/Back/Externos/Proyecto/ProyectoApi.Infrastructure/ProyectoApi.Infrastructure.csproj",
+  "expectedPackageFiles": [
+    "/Users/victor/.nuget/packages/microsoft.entityframeworkcore/10.0.10/microsoft.entityframeworkcore.10.0.10.nupkg.sha512",
+    "/Users/victor/.nuget/packages/microsoft.entityframeworkcore.abstractions/10.0.10/microsoft.entityframeworkcore.abstractions.10.0.10.nupkg.sha512",
+    "/Users/victor/.nuget/packages/microsoft.entityframeworkcore.analyzers/10.0.10/microsoft.entityframeworkcore.analyzers.10.0.10.nupkg.sha512",
+    "/Users/victor/.nuget/packages/microsoft.extensions.caching.abstractions/10.0.10/microsoft.extensions.caching.abstractions.10.0.10.nupkg.sha512",
+    "/Users/victor/.nuget/packages/microsoft.extensions.caching.memory/10.0.10/microsoft.extensions.caching.memory.10.0.10.nupkg.sha512",
+    "/Users/victor/.nuget/packages/microsoft.extensions.dependencyinjection/10.0.10/microsoft.extensions.dependencyinjection.10.0.10.nupkg.sha512",
+    "/Users/victor/.nuget/packages/microsoft.extensions.dependencyinjection.abstractions/10.0.10/microsoft.extensions.dependencyinjection.abstractions.10.0.10.nupkg.sha512",
+    "/Users/victor/.nuget/packages/microsoft.extensions.logging/10.0.10/microsoft.extensions.logging.10.0.10.nupkg.sha512",
+    "/Users/victor/.nuget/packages/microsoft.extensions.logging.abstractions/10.0.10/microsoft.extensions.logging.abstractions.10.0.10.nupkg.sha512",
+    "/Users/victor/.nuget/packages/microsoft.extensions.options/10.0.10/microsoft.extensions.options.10.0.10.nupkg.sha512",
+    "/Users/victor/.nuget/packages/microsoft.extensions.primitives/10.0.10/microsoft.extensions.primitives.10.0.10.nupkg.sha512"
+  ],
+  "logs": []
+}

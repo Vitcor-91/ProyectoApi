@@ -12,8 +12,9 @@ jobs:
   build-pipline:
     runs-on: ubuntu-18.04
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
+      - name: Echo message
+        run: |
+          echo "Hello, World!"
       #- uses: actions/checkout@v3
       #- name: Set up Node.js
       #  uses: actions/setup-node@v3

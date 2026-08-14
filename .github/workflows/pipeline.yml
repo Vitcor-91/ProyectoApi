@@ -11,12 +11,16 @@ on:
 
 jobs:
   build-pipeline:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24-04
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Echo message
-        run: |
-          echo "Hello, World!"
+      - name: Setup .NET 10
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: "10.0.x"
+
+      - name: Restore dependencies
+        run: dotnet restore

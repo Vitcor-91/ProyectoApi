@@ -9,16 +9,15 @@ on:
     branches:
       - main
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   build-pipeline:
     runs-on: ubuntu-24.04
 
     steps:
-      - name: Cancel redundant builds merged into main
-        uses: styfle/cancel-workflow-action@0.9.1
-        with:
-          access_token: ${{ github.token }}
-
       - name: Checkout repository
         uses: actions/checkout@v5
         with:

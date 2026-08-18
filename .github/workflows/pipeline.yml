@@ -14,7 +14,7 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  build-pipeline:
+  check-repository:
     runs-on: ubuntu-24.04
 
     steps:
@@ -23,6 +23,10 @@ jobs:
         with:
           fetch-depth: 0
 
+  build-pipeline:
+    runs-on: ubuntu-24.04
+
+    steps:
       - name: Setup .NET 10
         uses: actions/setup-dotnet@v5
         with:

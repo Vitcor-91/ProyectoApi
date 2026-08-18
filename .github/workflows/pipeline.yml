@@ -24,6 +24,7 @@ jobs:
           fetch-depth: 0
 
   build-pipeline:
+    needs: [check-repository]
     runs-on: ubuntu-24.04
 
     steps:

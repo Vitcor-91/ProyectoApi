@@ -34,13 +34,14 @@ jobs:
       - name: Build
         run: dotnet build ./ProyectoApi.slnx --no-restore --configuration Release
 
-      - name: Upload build
+      - name: Upload test artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: dotnet-build
+          name: dotnet-test-build
           path: |
-            **/bin/Release/**
-            **/obj/Release/**
+            ProyectoApi.UnitTests/bin/Release/net10.0/
+            ProyectoApi.UnitTests/obj/Release/net10.0/
+          retention-days: 1
 
   bd-conection:
     needs: [build-pipeline]
@@ -68,10 +69,10 @@ jobs:
         with:
           dotnet-version: "10.0.x"
 
-      - name: Download build
+      - name: Download test artifacts
         uses: actions/download-artifact@v5
         with:
-          name: dotnet-build
+          name: dotnet-test-build
 
       - name: Wait for MySQL
         env:

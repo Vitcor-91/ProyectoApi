@@ -56,4 +56,4 @@ jobs:
         run: dotnet build ./ProyectoApi.slnx --no-restore --configuration Release
 
       - name: Test database connection
-        run: dotnet test ./ProyectoApi.slnx --no-build --configuration Release --filter "Category=DatabaseConnection"
+        run: dotnet test ./ProyectoApi.slnx --no-build --configuration Release --filter "Category=Database_CanConnect"

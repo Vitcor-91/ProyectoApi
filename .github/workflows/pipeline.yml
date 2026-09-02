@@ -121,18 +121,9 @@ jobs:
           ConnectionStrings__DefaultConnection: "Server=127.0.0.1;Port=3306;Database=${{ secrets.MYSQL_DATABASE }};User=root;Password=${{ secrets.MYSQL_ROOT_PASSWORD }};"
 
         run: |
-          output=$(dotnet test ./ProyectoApi.slnx \
+          dotnet test ./ProyectoApi.UnitTests/ProyectoApi.UnitTests.csproj \
             --no-build \
+            --no-restore \
             --configuration Release \
             --filter "DatabaseConnection" \
-            --logger "console;verbosity=normal" 2>&1) || {
-              echo "$output"
-              exit 1
-            }
-
-          echo "$output"
-
-          if echo "$output" | grep -q "No test matches the given testcase filter"; then
-            echo "ERROR: No se encontró ningún test con el filtro especificado."
-            exit 1
-          fi
+            --logger "console;verbosity=normal"

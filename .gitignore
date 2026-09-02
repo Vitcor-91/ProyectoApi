@@ -1,0 +1,66 @@
+# .NET
+[Bb]in/
+[Oo]bj/
+.vs/
+
+# IDE
+.vscode/
+.idea/
+*.user
+*.suo
+
+# NuGet
+*.nupkg
+*.snupkg
+packages/
+
+# Logs
+*.log
+logs/
+
+# Test / coverage
+TestResults/
+coverage/
+
+# Environment / secrets
+.env
+.env.*
+!.env.example
+
+# User secrets
+secrets/
+*.secrets.json
+secrets.json
+
+# Docker local overrides
+docker-compose.override.yml
+docker-compose.local.yml
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Temporary
+*.tmp
+*.temp
+*.bak
+*.swp
+
+# Database local files
+*.db
+*.sqlite
+*.sqlite3
+*.mdf
+*.ldf
+*.ndf
+
+# Publish
+publish/
+PublishOutput/
+
+# ASP.NET Core development certificate
+*.pfx
+
+# Node (si se agrega frontend)
+node_modules/
+dist/

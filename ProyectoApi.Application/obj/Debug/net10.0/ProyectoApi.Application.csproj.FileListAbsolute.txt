@@ -13,3 +13,4 @@
 /Volumes/SSD Mac/Proyects/NET/Back/Externos/Proyecto/ProyectoApi.Application/obj/Debug/net10.0/refint/ProyectoApi.Application.dll
 /Volumes/SSD Mac/Proyects/NET/Back/Externos/Proyecto/ProyectoApi.Application/obj/Debug/net10.0/ProyectoApi.Application.pdb
 /Volumes/SSD Mac/Proyects/NET/Back/Externos/Proyecto/ProyectoApi.Application/obj/Debug/net10.0/ref/ProyectoApi.Application.dll
+/Volumes/SSD Mac/Proyects/NET/Back/Externos/Proyecto/ProyectoApi.Application/obj/Debug/net10.0/ProyectoApi.Application.sourcelink.json

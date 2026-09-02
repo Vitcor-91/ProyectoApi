@@ -14,17 +14,7 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  check-repository:
-    runs-on: ubuntu-24.04
-
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v5
-        with:
-          fetch-depth: 0
-
   build-pipeline:
-    needs: [check-repository]
     runs-on: ubuntu-24.04
 
     steps:
@@ -39,7 +29,31 @@ jobs:
           dotnet-version: "10.0.x"
 
       - name: Restore dependencies
-        run: dotnet restore
+        run: dotnet restore ./ProyectoApi.slnx
 
       - name: Build
-        run: dotnet build --no-restore --configuration Release
+        run: dotnet build ./ProyectoApi.slnx --no-restore --configuration Release
+
+  bd-conection:
+    needs: [build-pipeline]
+    runs-on: ubuntu-24.04
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+
+      - name: Setup .NET 10
+        uses: actions/setup-dotnet@v5
+        with:
+          dotnet-version: "10.0.x"
+
+      - name: Restore dependencies
+        run: dotnet restore ./ProyectoApi.slnx
+
+      - name: Build
+        run: dotnet build ./ProyectoApi.slnx --no-restore --configuration Release
+
+      - name: Test database connection
+        run: dotnet test ./ProyectoApi.slnx --no-build --configuration Release --filter "Category=DatabaseConnection"

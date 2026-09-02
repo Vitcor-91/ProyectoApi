@@ -1,0 +1,26 @@
+name: proyectoapi
+
+services:
+
+  api:
+
+    build:
+      context: .
+      dockerfile: ProyectoApi.Api/Dockerfile
+
+    container_name: proyectoapi-api
+
+    ports:
+      - "8001:8081"
+
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ASPNETCORE_URLS: "http://+:8081"
+      ConnectionStrings__DefaultConnection: "Server=mysql-container;Port=3306;Database=${MYSQL_DATABASE};User=${MYSQL_USER};Password=${MYSQL_PASSWORD};"
+    
+    networks:
+      - middleware-sqlapi
+
+networks:
+  middleware-sqlapi:
+    external: true

@@ -6,7 +6,8 @@ namespace ProyectoApi.UnitTests.User;
 public class UserTest
 {
     [Fact]
-    public async Task Database_CanConnect()
+    //[Trait("Category", "Database")]
+    public async Task DatabaseConnection()
     {
         var connectionString =
             Environment.GetEnvironmentVariable(

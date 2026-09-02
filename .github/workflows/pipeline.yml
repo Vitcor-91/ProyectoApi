@@ -55,5 +55,26 @@ jobs:
       - name: Build
         run: dotnet build ./ProyectoApi.slnx --no-restore --configuration Release
 
+      - name: Start MySQL
+        run: docker compose up -d mysql-container
+
       - name: Test database connection
-        run: dotnet test ./ProyectoApi.slnx --no-build --configuration Release --filter "DatabaseConnection"
+        env:
+          ConnectionStrings__DefaultConnection: "Server=${{ secrets.MYSQL_SERVER }};Port=${{ secrets.MYSQL_PORT }};Database=${{ secrets.MYSQL_DATABASE }};User=${{ secrets.MYSQL_USER }};Password=${{ secrets.MYSQL_PASSWORD }};"
+
+        run: |
+          output=$(dotnet test ./ProyectoApi.slnx \
+            --no-build \
+            --configuration Release \
+            --filter "Category=DatabaseConnection" \
+            --logger "console;verbosity=normal" 2>&1) || {
+              echo "$output"
+              exit 1
+            }
+
+          echo "$output"
+
+          if echo "$output" | grep -q "No test matches the given testcase filter"; then
+            echo "ERROR: No se encontró ningún test con el filtro especificado."
+            exit 1
+          fi

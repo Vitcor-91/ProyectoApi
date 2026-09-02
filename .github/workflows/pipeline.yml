@@ -38,18 +38,6 @@ jobs:
     needs: [build-pipeline]
     runs-on: ubuntu-24.04
 
-    services:
-      mysql:
-        image: mysql:8.0
-        env:
-          MYSQL_DATABASE: ${{ secrets.MYSQL_DATABASE }}
-          MYSQL_USER: ${{ secrets.MYSQL_USER }}
-          MYSQL_PASSWORD: ${{ secrets.MYSQL_PASSWORD }}
-          MYSQL_ROOT_PASSWORD: ${{ secrets.MYSQL_ROOT_PASSWORD }}
-
-        ports:
-          - 3306:3306
-
     steps:
       - name: Checkout repository
         uses: actions/checkout@v5
@@ -66,40 +54,6 @@ jobs:
 
       - name: Build
         run: dotnet build ./ProyectoApi.slnx --no-restore --configuration Release
-
-      - name: Wait for MySQL
-        env:
-          MYSQL_ROOT_PASSWORD: ${{ secrets.MYSQL_ROOT_PASSWORD }}
-
-        run: |
-          echo "Esperando a que MySQL esté disponible..."
-
-          for i in {1..30}; do
-
-            if docker run --rm \
-              --network host \
-              mysql:8.0 \
-              mysqladmin ping \
-              -h 127.0.0.1 \
-              -P 3306 \
-              -u root \
-              -p"${MYSQL_ROOT_PASSWORD}" \
-              --silent; then
-
-              echo "MySQL está listo."
-              exit 0
-            fi
-
-            echo "Intento $i/30 - MySQL todavía no está disponible."
-            sleep 2
-
-          done
-
-          echo "ERROR: MySQL no estuvo disponible."
-
-          docker ps -a
-
-          exit 1
 
       - name: Test database connection
         env:

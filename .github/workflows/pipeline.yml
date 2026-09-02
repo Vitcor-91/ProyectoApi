@@ -63,7 +63,7 @@ jobs:
           output=$(dotnet test ./ProyectoApi.slnx \
             --no-build \
             --configuration Release \
-            --filter "Category=DatabaseConnection" \
+            --filter "DatabaseConnection" \
             --logger "console;verbosity=normal" 2>&1) || {
               echo "$output"
               exit 1

@@ -121,9 +121,7 @@ jobs:
           ConnectionStrings__DefaultConnection: "Server=127.0.0.1;Port=3306;Database=${{ secrets.MYSQL_DATABASE }};User=root;Password=${{ secrets.MYSQL_ROOT_PASSWORD }};"
 
         run: |
-          dotnet vstest ./ProyectoApi.UnitTests/bin/Release/net10.0/ProyectoApi.UnitTests.dll \
-            --no-build \
-            --no-restore \
-            --configuration Release \
-            --filter "DatabaseConnection" \
-            --logger "console;verbosity=normal"
+          dotnet vstest \
+          ./ProyectoApi.UnitTests/bin/Release/net10.0/ProyectoApi.UnitTests.dll \
+          --TestCaseFilter:"FullyQualifiedName~DatabaseConnection" \
+          --Logger:"console;verbosity=normal"

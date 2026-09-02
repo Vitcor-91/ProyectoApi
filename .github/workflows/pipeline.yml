@@ -34,13 +34,17 @@ jobs:
       - name: Build
         run: dotnet build ./ProyectoApi.slnx --no-restore --configuration Release
 
-      - name: Upload test artifacts
+      - name: Package test build
+        run: |
+          tar -czf dotnet-test-build.tar.gz \
+            ProyectoApi.UnitTests/bin/Release/net10.0 \
+            ProyectoApi.UnitTests/obj/Release/net10.0
+
+      - name: Upload test artifact
         uses: actions/upload-artifact@v4
         with:
           name: dotnet-test-build
-          path: |
-            ProyectoApi.UnitTests/bin/Release/net10.0/
-            ProyectoApi.UnitTests/obj/Release/net10.0/
+          path: dotnet-test-build.tar.gz
           retention-days: 1
 
   bd-conection:
@@ -69,10 +73,14 @@ jobs:
         with:
           dotnet-version: "10.0.x"
 
-      - name: Download test artifacts
+      - name: Download test artifact
         uses: actions/download-artifact@v5
         with:
           name: dotnet-test-build
+
+      - name: Extract test artifact
+        run: |
+          tar -xzf dotnet-test-build.tar.gz
 
       - name: Wait for MySQL
         env:

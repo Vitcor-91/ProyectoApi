@@ -191,7 +191,7 @@ jobs:
         if: vars.DEPLOY_TARGET == 'local'
         run: |
           echo "Deploy local seleccionado"
-          docker compose pull
+          docker-compose build
           docker compose up -d
 
       - name: Configure SSH

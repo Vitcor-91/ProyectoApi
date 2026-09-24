@@ -4,9 +4,10 @@ services:
 
   api:
 
-    build:
-      context: .
-      dockerfile: ProyectoApi.Api/Dockerfile
+    #build:
+    #  context: .
+    #  dockerfile: ProyectoApi.Api/Dockerfile
+    image: ghcr.io/${GHCR_OWNER}/proyectoapi:${IMAGE_TAG:-latest}
 
     container_name: proyectoapi-api
 
@@ -20,8 +21,6 @@ services:
     
     networks:
       - middleware-sqlapi
-
-    image: proyectoapi-api:latest
 
 networks:
   middleware-sqlapi:

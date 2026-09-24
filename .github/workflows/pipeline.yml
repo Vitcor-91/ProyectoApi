@@ -9,6 +9,10 @@ on:
     branches:
       - main
 
+permissions:
+  contents: read
+  packages: write
+
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
@@ -163,7 +167,6 @@ jobs:
     runs-on: ubuntu-24.04
 
     needs:
-      - docker-verify
       - docker-validate
       - build-pipeline
 
@@ -176,6 +179,41 @@ jobs:
           docker build \
             -t proyectoapi:${{ github.sha }} \
             -f ProyectoApi.Api/Dockerfile .
+
+  docker-push:
+    name: Push Docker Image
+    runs-on: ubuntu-24.04
+
+    needs:
+      - docker-build
+
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build Docker image
+        run: |
+          docker build \
+            -t ghcr.io/${{ github.repository_owner }}/proyectoapi:${{ github.sha }} \
+            -t ghcr.io/${{ github.repository_owner }}/proyectoapi:latest \
+            -f ProyectoApi.Api/Dockerfile .
+
+      - name: Push Docker image
+        run: |
+          docker push \
+            ghcr.io/${{ github.repository_owner }}/proyectoapi:${{ github.sha }}
+
+          docker push \
+            ghcr.io/${{ github.repository_owner }}/proyectoapi:latest
 
   deploy-local:
     name: Deploy Local

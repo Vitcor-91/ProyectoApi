@@ -179,7 +179,6 @@ jobs:
 
   deploy:
     name: Deploy
-
     runs-on: ubuntu-24.04
 
     needs:
@@ -188,7 +187,29 @@ jobs:
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
 
     steps:
-      - name: Deploy to server
+      - name: Deploy local
+        if: vars.DEPLOY_TARGET == 'local'
         run: |
-          ssh ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }} \
-            "cd /app/proyectoapi && docker compose pull && docker compose up -d"
+          echo "Deploy local seleccionado"
+          docker compose pull
+          docker compose up -d
+
+      - name: Configure SSH
+        if: vars.DEPLOY_TARGET == 'server' || vars.DEPLOY_TARGET == 'cloud'
+        run: |
+          mkdir -p ~/.ssh
+
+          echo "${{ secrets.SERVER_SSH_KEY }}" > ~/.ssh/id_rsa
+
+          chmod 600 ~/.ssh/id_rsa
+
+          ssh-keyscan -H "${{ secrets.SERVER_HOST }}" \
+            >> ~/.ssh/known_hosts
+
+      - name: Deploy remote
+        if: vars.DEPLOY_TARGET == 'server' || vars.DEPLOY_TARGET == 'cloud'
+        run: |
+          ssh "${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }}" \
+            "cd /app/proyectoapi && \
+            docker compose pull && \
+            docker compose up -d"

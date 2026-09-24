@@ -182,18 +182,6 @@ jobs:
 
     runs-on: ubuntu-24.04
 
-    services:
-      mysql:
-        image: mysql:8.0
-
-        env:
-          MYSQL_DATABASE: ${{ secrets.MYSQL_DATABASE }}
-          MYSQL_ROOT_PASSWORD: ${{ secrets.MYSQL_ROOT_PASSWORD }}
-          MYSQL_ROOT_USER: ${{ secrets.MYSQL_USER }}
-
-        ports:
-          - 3306:3306
-
     needs:
       - docker-build
 

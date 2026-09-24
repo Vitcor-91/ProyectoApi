@@ -220,7 +220,7 @@ jobs:
     runs-on: [self-hosted, macOS, ARM64]
 
     needs:
-      - docker-build
+      - docker-push
 
     if: >
       github.event_name == 'push' &&
@@ -244,7 +244,7 @@ jobs:
     runs-on: ubuntu-24.04
 
     needs:
-      - docker-build
+      - docker-push
 
     if: >
       github.event_name == 'push' &&
@@ -279,7 +279,7 @@ jobs:
     runs-on: ubuntu-24.04
 
     needs:
-      - docker-build
+      - docker-push
 
     if: >
       github.event_name == 'push' &&

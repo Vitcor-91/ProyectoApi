@@ -141,21 +141,65 @@ jobs:
           docker --version
           docker compose version
 
-  docker-build:
-    name: Docker build and deploy
-
-    needs:
-      - build-pipeline
-      - bd-conection
-      - docker-verify
+  docker-validate:
+    name: Validate Docker Compose
 
     runs-on: ubuntu-24.04
+
+    needs:
+      - docker-verify
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v5
 
-      - name: Verify Docker installation
+      - name: Validate Docker Compose
         run: |
-          docker --version
-          docker compose version
+          docker compose config
+
+  docker-build:
+    name: Build Docker image
+
+    runs-on: ubuntu-24.04
+
+    needs:
+      - docker-verify
+      - docker-validate
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+
+      - name: Build image
+        run: |
+          docker build \
+            -t proyectoapi:${{ github.sha }} \
+            -f ProyectoApi.Api/Dockerfile .
+
+  deploy:
+    name: Deploy
+
+    runs-on: ubuntu-24.04
+
+    services:
+      mysql:
+        image: mysql:8.0
+
+        env:
+          MYSQL_DATABASE: ${{ secrets.MYSQL_DATABASE }}
+          MYSQL_ROOT_PASSWORD: ${{ secrets.MYSQL_ROOT_PASSWORD }}
+          MYSQL_ROOT_USER: ${{ secrets.MYSQL_USER }}
+
+        ports:
+          - 3306:3306
+
+    needs:
+      - docker-build
+
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+
+    steps:
+      - name: Deploy to server
+        run: |
+          ssh ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }} \
+            "cd /app/proyectoapi && docker compose pull && docker compose up -d"

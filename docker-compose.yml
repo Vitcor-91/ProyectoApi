@@ -21,6 +21,8 @@ services:
     networks:
       - middleware-sqlapi
 
+    image: proyectoapi-api:latest
+
 networks:
   middleware-sqlapi:
     external: true

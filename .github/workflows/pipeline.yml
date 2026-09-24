@@ -235,7 +235,7 @@ jobs:
 
       - name: Set lower name
         run: |
-          echo "LOWER_NAME=${GITHUB_REPOSITORY_OWNER,,}"
+          echo "LOWER_NAME=${GITHUB_REPOSITORY_OWNER,,}" >> "$GITHUB_ENV"
 
       - name: Verify GHCR owner
         env:

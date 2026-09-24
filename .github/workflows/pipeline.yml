@@ -165,6 +165,7 @@ jobs:
     needs:
       - docker-verify
       - docker-validate
+      - build-pipeline
 
     steps:
       - name: Checkout repository

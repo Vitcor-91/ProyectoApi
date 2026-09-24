@@ -237,6 +237,13 @@ jobs:
         run: |
           echo "LOWER_NAME=${GITHUB_REPOSITORY_OWNER,,}"
 
+      - name: Verify GHCR owner
+        env:
+          GHCR_OWNER: ${{ env.LOWER_NAME }}
+        run: |
+          echo "GHCR_OWNER=${GHCR_OWNER}"
+          echo "IMAGE=ghcr.io/${GHCR_OWNER}/proyectoapi:latest"
+
       - name: Deploy local
         env:
           GHCR_OWNER: ${{ env.LOWER_NAME }}

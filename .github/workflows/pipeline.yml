@@ -177,39 +177,96 @@ jobs:
             -t proyectoapi:${{ github.sha }} \
             -f ProyectoApi.Api/Dockerfile .
 
-  deploy:
-    name: Deploy
+  deploy-local:
+    name: Deploy Local
+    runs-on: [self-hosted, macOS, ARM64]
+
+    needs:
+      - docker-build
+
+    if: >
+      github.event_name == 'push' &&
+      github.ref == 'refs/heads/main' &&
+      vars.DEPLOY_TARGET == 'local'
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+
+      - name: Deploy local
+        run: |
+          echo "Deploy local seleccionado"
+
+          docker compose pull
+
+          docker compose up -d
+
+  deploy-server:
+    name: Deploy Server
     runs-on: ubuntu-24.04
 
     needs:
       - docker-build
 
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    if: >
+      github.event_name == 'push' &&
+      github.ref == 'refs/heads/main' &&
+      vars.DEPLOY_TARGET == 'server'
 
     steps:
-      - name: Deploy local
-        if: vars.DEPLOY_TARGET == 'local'
-        run: |
-          echo "Deploy local seleccionado"
-          docker compose build
-          docker compose up -d
-
       - name: Configure SSH
-        if: vars.DEPLOY_TARGET == 'server' || vars.DEPLOY_TARGET == 'cloud'
         run: |
           mkdir -p ~/.ssh
 
-          echo "${{ secrets.SERVER_SSH_KEY }}" > ~/.ssh/id_rsa
+          echo "${{ secrets.SERVER_SSH_KEY }}" \
+            > ~/.ssh/id_rsa
 
           chmod 600 ~/.ssh/id_rsa
 
-          ssh-keyscan -H "${{ secrets.SERVER_HOST }}" \
+      - name: Add server to known hosts
+        run: |
+          ssh-keyscan -H \
+            "${{ secrets.SERVER_HOST }}" \
             >> ~/.ssh/known_hosts
 
-      - name: Deploy remote
-        if: vars.DEPLOY_TARGET == 'server' || vars.DEPLOY_TARGET == 'cloud'
+      - name: Deploy server
         run: |
           ssh "${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }}" \
             "cd /app/proyectoapi && \
-            docker compose pull && \
-            docker compose up -d"
+             docker compose pull && \
+             docker compose up -d"
+
+  deploy-cloud:
+    name: Deploy Cloud
+    runs-on: ubuntu-24.04
+
+    needs:
+      - docker-build
+
+    if: >
+      github.event_name == 'push' &&
+      github.ref == 'refs/heads/main' &&
+      vars.DEPLOY_TARGET == 'cloud'
+
+    steps:
+      - name: Configure SSH
+        run: |
+          mkdir -p ~/.ssh
+
+          echo "${{ secrets.SERVER_SSH_KEY }}" \
+            > ~/.ssh/id_rsa
+
+          chmod 600 ~/.ssh/id_rsa
+
+      - name: Add cloud server to known hosts
+        run: |
+          ssh-keyscan -H \
+            "${{ secrets.SERVER_HOST }}" \
+            >> ~/.ssh/known_hosts
+
+      - name: Deploy cloud
+        run: |
+          ssh "${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }}" \
+            "cd /app/proyectoapi && \
+             docker compose pull && \
+             docker compose up -d"

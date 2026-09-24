@@ -233,7 +233,18 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v5
 
+      - name: Set lower name
+        run: |
+          echo "LOWER_NAME=${GITHUB_REPOSITORY_OWNER,,}"
+
       - name: Deploy local
+        env:
+          GHCR_OWNER: ${{ env.LOWER_NAME }}
+          MYSQL_SERVER: ${{ vars.MYSQL_SERVER }}
+          MYSQL_PORT: ${{ vars.MYSQL_PORT }}
+          MYSQL_DATABASE: ${{ secrets.MYSQL_DATABASE }}
+          MYSQL_USER: ${{ secrets.MYSQL_USER }}
+          MYSQL_PASSWORD: ${{ secrets.MYSQL_PASSWORD }}
         run: |
           echo "Deploy local seleccionado"
 

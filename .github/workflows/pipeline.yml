@@ -256,15 +256,7 @@ jobs:
 
       - name: Show local deployment command
         run: |
-          echo ""
-          echo "========================================="
-          echo "Imagen disponible para despliegue local"
-          echo "========================================="
-          echo ""
           echo "docker pull ${IMAGE_NAME}:${{ github.sha }}"
-          echo ""
-          echo "IMAGE_TAG=${{ github.sha }}"
-          echo ""
 
   deploy-server:
     name: Deploy Server

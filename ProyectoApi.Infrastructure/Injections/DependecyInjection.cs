@@ -1,9 +1,12 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using ProyectoApi.Application.Interfaces;
+
 //using ProyectoApi.Application.Interfaces;
 using ProyectoApi.Infrastructure.Persistence;
 using ProyectoApi.Infrastructure.Services;
+using Prueba.Application.Queries.Users;
 //using ProyectoApi.Infrastructure.Repositories;
 
 namespace ProyectoApi.Infrastructure;
@@ -15,7 +18,8 @@ public static class DependencyInjection
         IConfiguration configuration)
     {
         AddDatabase(services, configuration);
-        //AddRepositories(services);
+        AddRepositories(services);
+        AddHandlers(services);
         AddExternalServices(services);
 
         return services;
@@ -34,16 +38,23 @@ public static class DependencyInjection
                 ServerVersion.AutoDetect(connectionString)));
     }
 
-    /*private static void AddRepositories(
+    private static void AddRepositories(
         IServiceCollection services)
     {
-        services.AddScoped<IUserRepository, UserRepository>();
-        services.AddScoped<IProductRepository, ProductRepository>();
-    }*/
+        //services.AddScoped<IUserRepository, UserRepository>();
+    }
+
+
+    private static void AddHandlers(
+        IServiceCollection services)
+    {
+        services.AddScoped<GetConnectionHandler>();
+    }
 
     private static void AddExternalServices(
         IServiceCollection services)
     {
         services.AddScoped<UserService, UserService>();
+        services.AddScoped<IConnectionRepository, BDService>();
     }
 }

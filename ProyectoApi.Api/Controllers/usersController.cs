@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ProyectoApi.Application.DTOs.User;
+using Prueba.Application.Queries.Users;
 
 namespace ProyectoApi.Api.Controllers
 {
@@ -12,16 +13,29 @@ namespace ProyectoApi.Api.Controllers
     public class usersController : ControllerBase
     {
 
+        private readonly GetConnectionHandler _handler;
+
+        public usersController(
+            GetConnectionHandler getConnectionHandler
+        )
+        {
+            _handler = getConnectionHandler;
+        }
+
         [HttpPost(Name = "TestConection")]
         //[Authorize(Roles = "Cliente")]
-        public IEnumerable<TestConection> TestConection()
+        public async Task<IActionResult> TestConection(CancellationToken cancellationToken)
         {
-            var result = new List<TestConection>
+            var result = await _handler.Handle(
+                cancellationToken 
+            );
+            
+            if(!result.success)
             {
-                new TestConection { success = true, message = "Conexión exitosa" }
-            };
+                return Unauthorized(result);
+            }
 
-            return result;
+            return Ok(result);
         }
 
     }

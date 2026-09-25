@@ -255,9 +255,13 @@ jobs:
         run: |
           echo "Deploy local seleccionado"
 
+          docker network create middleware-sqlapi || true
+
           docker compose pull
 
           docker compose up -d
+
+          docker compose ps
 
   deploy-server:
     name: Deploy Server

@@ -11,12 +11,14 @@ services:
 
     container_name: proyectoapi-api
 
+    restart: unless-stopped
+
     ports:
-      - "8001:8081"
+      - "8001:8080"
 
     environment:
       ASPNETCORE_ENVIRONMENT: Development
-      ASPNETCORE_URLS: "http://+:8081"
+      ASPNETCORE_URLS: "http://+:8080"
       ConnectionStrings__DefaultConnection: "Server=${MYSQL_SERVER};Port=${MYSQL_PORT};Database=${MYSQL_DATABASE};User=${MYSQL_USER};Password=${MYSQL_PASSWORD};"
     
     networks:

@@ -178,11 +178,15 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v5
 
+      - name: Set image name
+        run: |
+          echo "IMAGE_NAME=ghcr.io/${GITHUB_REPOSITORY_OWNER,,}/proyectoapi" >> "$GITHUB_ENV"
+
       - name: Login to GitHub Container Registry
         uses: docker/login-action@v3
         with:
           registry: ghcr.io
-          username: ${{ github.actor }}
+          username: ${IMAGE_NAME}
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Set up Docker Buildx
